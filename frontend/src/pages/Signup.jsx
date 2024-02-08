@@ -52,8 +52,8 @@ export default function Signup() {
 		setIsLoading(true);
 		const payload = {
 			email: emailRef.current.value,
-			first_Name: fNameRef.current.value,
-			last_Name: lNameRef.current.value,
+			first_name: fNameRef.current.value,
+			last_name: lNameRef.current.value,
 			password: passwordRef.current.value,
 			password_confirmation: passwordConfirmationRef.current.value,
 		};
@@ -70,6 +70,7 @@ export default function Signup() {
 					console.log(response.data.errors);
 				}
 			});
+		setIsLoading(false);
 	};
 
 	return (

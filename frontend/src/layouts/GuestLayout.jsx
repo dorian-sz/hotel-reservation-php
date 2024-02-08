@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
+import Navbar from '../components/Navbar/Navbar';
 
 export default function GuestLayout() {
 	const { token } = useStateContext();
@@ -9,9 +10,9 @@ export default function GuestLayout() {
 	}
 
 	return (
-		<>
-			Guest layout
+		<div>
+			<Navbar />
 			<Outlet />
-		</>
+		</div>
 	);
 }

@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
+import Navbar from '../components/Navbar/Navbar';
 
 export default function DefaultLayout() {
 	const { user, token } = useStateContext();
@@ -10,6 +11,10 @@ export default function DefaultLayout() {
 
 	return (
 		<>
+			<Navbar
+				user={user}
+				token={token}
+			/>
 			Default layout
 			<Outlet />
 		</>

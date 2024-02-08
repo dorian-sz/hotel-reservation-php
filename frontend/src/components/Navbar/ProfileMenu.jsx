@@ -3,8 +3,9 @@ import { FaUser } from 'react-icons/fa';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import ProfileMenuItem from './ProfileMenuItem';
+import Signout from './Signout';
 
-export default function ProfileMenu({ user, token }) {
+export default function ProfileMenu({ token }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const authItems = [
@@ -40,8 +41,13 @@ export default function ProfileMenu({ user, token }) {
 			<FaUser />
 			{isOpen && (
 				<div className='absolute border top-12 right-0 py-2 w-56 bg-white rounded-lg shadow-md'>
-					{user && <ProfileMenuItem items={userItems} />}
-					{!user && <ProfileMenuItem items={authItems} />}
+					{token && (
+						<>
+							<ProfileMenuItem items={userItems} />
+							<Signout />
+						</>
+					)}
+					{!token && <ProfileMenuItem items={authItems} />}
 				</div>
 			)}
 		</div>

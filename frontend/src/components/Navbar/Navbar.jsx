@@ -28,7 +28,10 @@ export default function Navbar({ user, token }) {
 					))}
 				</div>
 				<div className='w-full flex flex-row-reverse'>
-					<ProfileMenu />
+					<ProfileMenu
+						token={token}
+						user={user}
+					/>
 				</div>
 			</div>
 		</nav>

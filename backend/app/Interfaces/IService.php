@@ -13,7 +13,7 @@ interface IService
      */
     public function add($entity);
     /**
-     * @param int $id
+     * @param T $entity
      * @return T
      */
     public function get($entity);

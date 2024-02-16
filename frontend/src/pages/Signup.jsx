@@ -8,7 +8,6 @@ export default function Signup() {
 	const lNameRef = useRef();
 	const emailRef = useRef();
 	const passwordRef = useRef();
-	const passwordConfirmationRef = useRef();
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -39,12 +38,6 @@ export default function Signup() {
 			type: 'password',
 			ref: passwordRef,
 		},
-		{
-			label: 'Confirm password',
-			id: 'confirmPassword',
-			type: 'password',
-			ref: passwordConfirmationRef,
-		},
 	];
 
 	const onSubmit = (e) => {
@@ -55,7 +48,6 @@ export default function Signup() {
 			first_name: fNameRef.current.value,
 			last_name: lNameRef.current.value,
 			password: passwordRef.current.value,
-			password_confirmation: passwordConfirmationRef.current.value,
 		};
 		axiosClient
 			.post('/signup', payload)

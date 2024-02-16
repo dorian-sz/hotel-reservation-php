@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->decimal('cost');
             $table->string('size');
-            $table->boolean('available');
+            $table->boolean('available')->default(1);
             $table->timestamps();
-            $table->foreignIdFor(\App\Models\Reservation::class)->nullable()->references('id')->on('reservations')->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Reservation::class)->nullable()->references('id')->on('reservations')->onDelete("SET NULL");
         });
     }
 

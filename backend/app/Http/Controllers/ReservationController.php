@@ -32,12 +32,12 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         $data = $request->validated();
-        $rooms = [];
         foreach ($data["room_ids"] as $id){
             $room = $this->roomService->get($id);
-            $rooms[] = $room;
+            $room->update(["available"=>0]);
+            $data["rooms"][] = $room;
         }
-        $total_cost = $this->reservationDetails->calcTotal($rooms);
+        $total_cost = $this->reservationDetails->calcTotal($data["rooms"]);
         $data["total_cost"] = $total_cost;
         return $this->reservationService->add($data);
     }
@@ -45,9 +45,9 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $user)
+    public function show(Reservation $reservation)
     {
-        return $this->reservationService->get($user);
+        return $this->reservationService->get($reservation);
     }
 
     /**
@@ -62,8 +62,11 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $room)
+    public function destroy(Reservation $reservation)
     {
-        return $this->reservationService->delete($room);
+        foreach ($reservation->rooms as $room){
+            $room->update(["available"=>1]);
+        }
+        return $this->reservationService->delete($reservation);
     }
 }

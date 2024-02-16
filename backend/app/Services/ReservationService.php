@@ -20,10 +20,13 @@ class ReservationService implements IService
      */
     public function add($entity)
     {
-        return Reservation::query()->create([
+        $reservation = Reservation::query()->create([
             'total_cost' => $entity["total_cost"],
             'user_id' => $entity['user_id'],
         ]);
+        $reservation->rooms()->saveMany($entity["rooms"]);
+
+        return $reservation;
     }
 
     /**

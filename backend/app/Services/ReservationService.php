@@ -20,9 +20,8 @@ class ReservationService implements IService
      */
     public function add($entity)
     {
-        $total = $this->calculateTotal($entity["room_ids"]);
         return Reservation::query()->create([
-            'total_cost' => $total,
+            'total_cost' => $entity["total_cost"],
             'user_id' => $entity['user_id'],
         ]);
     }
@@ -62,16 +61,5 @@ class ReservationService implements IService
     public function delete($entity)
     {
         return $entity->delete();
-    }
-
-    private function calculateTotal($room_ids)
-    {
-        $total = 0;
-        foreach ($room_ids as $id){
-            $room = $this->roomService->get($id);
-            $total = $total + $room["total_cost"];
-        }
-
-        return $total;
     }
 }

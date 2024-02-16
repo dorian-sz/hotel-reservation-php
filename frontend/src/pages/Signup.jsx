@@ -63,14 +63,15 @@ export default function Signup() {
 				setUser(data.user);
 				setIsAdmin(data.isAdmin);
 				setToken(data.token);
+				setIsLoading(false);
 			})
 			.catch((err) => {
 				const response = err.response;
 				if (response && response.status === 422) {
 					console.log(response.data.errors);
+					setIsLoading(false);
 				}
 			});
-		setIsLoading(false);
 	};
 
 	return (

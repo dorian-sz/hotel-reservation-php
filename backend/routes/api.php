@@ -14,10 +14,16 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
+
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::apiResource('/users', \App\Http\Controllers\UserController::class);
+Route::apiResource('/rooms', \App\Http\Controllers\RoomController::class);
+Route::apiResource('/reservations', \App\Http\Controllers\ReservationController::class);

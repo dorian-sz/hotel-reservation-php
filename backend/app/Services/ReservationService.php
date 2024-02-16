@@ -35,7 +35,7 @@ class ReservationService implements IService
      */
     public function get($entity)
     {
-        return new Reservation($entity);
+        return new ReservationResource($entity);
     }
 
     /**

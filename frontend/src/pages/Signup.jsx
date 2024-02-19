@@ -10,6 +10,7 @@ export default function Signup() {
 	const passwordRef = useRef();
 
 	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
 
 	const { setUser, setToken, setIsAdmin } = useStateContext();
 
@@ -55,12 +56,13 @@ export default function Signup() {
 				setUser(data.user);
 				setIsAdmin(data.isAdmin);
 				setToken(data.token);
+				setError(null);
 				setIsLoading(false);
 			})
 			.catch((err) => {
 				const response = err.response;
 				if (response && response.status === 422) {
-					console.log(response.data.errors);
+					setError(response.data.message);
 					setIsLoading(false);
 				}
 			});
@@ -74,6 +76,7 @@ export default function Signup() {
 				buttonLabel={'Register'}
 				onSubmit={onSubmit}
 				isLoading={isLoading}
+				error={error}
 			/>
 		</div>
 	);

@@ -8,7 +8,7 @@ export default function Login() {
 	const passwordRef = useRef();
 
 	const [isLoading, setIsLoading] = useState(false);
-
+	const [error, setError] = useState(null);
 	const { setUser, setToken, setIsAdmin } = useStateContext();
 
 	const fields = [
@@ -37,17 +37,16 @@ export default function Login() {
 		axiosClient
 			.post('/login', payload)
 			.then(({ data }) => {
-				console.log(data);
 				setUser(data.user);
 				setIsAdmin(data.isAdmin);
 				setToken(data.token);
+				setError(null);
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				console.log(err);
 				const response = err.response;
 				if (response && response.status === 422) {
-					console.log(response.data.errors);
+					setError(response.data.message);
 				}
 				setIsLoading(false);
 			});
@@ -61,6 +60,7 @@ export default function Login() {
 				buttonLabel={'Log in'}
 				onSubmit={onSubmit}
 				isLoading={isLoading}
+				error={error}
 			/>
 		</div>
 	);

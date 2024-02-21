@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->decimal('cost');
-            $table->string('size');
             $table->boolean('available')->default(1);
             $table->timestamps();
             $table->foreignIdFor(\App\Models\Reservation::class)->nullable()->references('id')->on('reservations')->onDelete("SET NULL");
+            $table->foreignIdFor(\App\Models\Size::class)->nullable()->references('id')->on('sizes')->onDelete("SET NULL");
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('rooms');
     }
 };

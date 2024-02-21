@@ -37,8 +37,8 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        $r = $this->roomService->get(1);
-        return response($r);
+        $entities["entity"] = $room;
+        return $this->roomService->get($entities);
     }
 
     /**

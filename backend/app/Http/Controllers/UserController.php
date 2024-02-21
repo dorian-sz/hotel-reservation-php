@@ -36,7 +36,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->userService->get($user);
+        $entities["entity"] = $user;
+        return $this->userService->get($entities);
     }
 
     /**

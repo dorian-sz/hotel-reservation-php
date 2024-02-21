@@ -26,8 +26,8 @@ class SizeController extends Controller
      */
     public function store(StoreSizeRequest $request)
     {
-        $room = $request->validated();
-        return $this->sizeService->add($room);
+        $size = $request->validated();
+        return $this->sizeService->add($size);
     }
 
     /**
@@ -35,7 +35,8 @@ class SizeController extends Controller
      */
     public function show(Size $size)
     {
-        return $this->sizeService->get($size);
+        $entities["entity"] = $size;
+        return $this->sizeService->get($entities);
     }
 
     /**

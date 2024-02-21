@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Reservation;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,9 +18,10 @@ class RoomResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'size' => $this->size,
+            'size' => new SizeResource(Size::query()->find($this->size_id)),
             'cost' => $this->cost,
-            'available' => $this->available,
+            'available' => (boolean)$this->available,
+            'reservation_id' => $this->reservation_id
         ];
     }
 }

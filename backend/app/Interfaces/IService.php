@@ -13,10 +13,10 @@ interface IService
      */
     public function add($entity);
     /**
-     * @param T $entity
-     * @return T
+     * @param array $entities
+     * @return ?T
      */
-    public function get($entity);
+    public function get(array $entities);
     /**
      * @return array
      */

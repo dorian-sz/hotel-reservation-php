@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoomDetailsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,6 +25,12 @@ Route::middleware('auth:sanctum')->group(function (){
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
+
 Route::apiResource('/users', \App\Http\Controllers\UserController::class);
 Route::apiResource('/rooms', \App\Http\Controllers\RoomController::class);
 Route::apiResource('/reservations', \App\Http\Controllers\ReservationController::class);
+Route::apiResource('/sizes', \App\Http\Controllers\SizeController::class);
+
+Route::get('/room-details/available', [RoomDetailsController::class, 'availableRooms']);
+Route::get('/room-details/cost/{room}', [RoomDetailsController::class, 'getRoomCost']);
+Route::get('/room-details/size/{room}', [RoomDetailsController::class, 'getRoomSize']);

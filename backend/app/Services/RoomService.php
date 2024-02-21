@@ -16,18 +16,23 @@ class RoomService implements IService
     {
         return Room::query()->create([
             'cost' => $entity['cost'],
-            'size' => $entity['size'],
+            'size_id' => $entity['size_id'],
             'available' => $entity['available'],
         ]);
     }
 
     /**
-     * @param Room $entity
+     * @param array $entities
      * @inheritDoc
      */
-    public function get($entity)
+    public function get(array $entities)
     {
-        return Room::query()->find($entity);
+        if (isset($entities["id"])){
+            return Room::query()->find($entities["id"]);
+        }else if (isset($entities["entity"])){
+            return new RoomResource($entities["entity"]);
+        }
+        return null;
     }
 
     /**

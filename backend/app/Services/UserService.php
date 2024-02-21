@@ -24,12 +24,17 @@ class UserService implements IService
     }
 
     /**
-     * @param User $entity
+     * @param array $entities
      * @inheritDoc
      */
-    public function get($entity)
+    public function get(array $entities)
     {
-        return new UserResource($entity);
+        if (isset($entities["id"])){
+            return new UserResource(User::query()->find($entities["id"]));
+        }else if (isset($entities["entity"])){
+            return new UserResource($entities["entity"]);
+        }
+        return null;
     }
 
     /**

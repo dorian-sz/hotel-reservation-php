@@ -30,12 +30,18 @@ class ReservationService implements IService
     }
 
     /**
-     * @param Reservation $entity
+     * @param array $entities
      * @inheritDoc
      */
-    public function get($entity)
+    public function get(array $entities)
     {
-        return new ReservationResource($entity);
+        if (isset($entities["id"])){
+            return new ReservationResource(Reservation::query()->find($entities["id"]));
+        }
+        if (isset($entities["entity"])){
+            return new ReservationResource($entities["entity"]);
+        }
+        return null;
     }
 
     /**

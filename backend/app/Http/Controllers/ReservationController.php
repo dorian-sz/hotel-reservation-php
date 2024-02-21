@@ -9,12 +9,15 @@ use App\Http\Requests\StoreReservationRequest;
 use App\Services\ReservationDetails;
 use App\Services\ReservationService;
 use App\Services\RoomService;
+use App\Services\UserService;
 
 class ReservationController extends Controller
 {
     public function __construct(private readonly ReservationService $reservationService,
                                 private readonly RoomService $roomService,
-                                private readonly ReservationDetails $reservationDetails)
+                                private readonly ReservationDetails $reservationDetails,
+                                private readonly UserService $userService
+    )
     {
     }
 
@@ -32,13 +35,21 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         $data = $request->validated();
+
+        $user = $this->userService->get(["id" =>$data['user_id']]);
+
+        if (!$user){
+            return response('User not found', 404);
+        }
+
         foreach ($data["room_ids"] as $id){
-            $room = $this->roomService->get($id);
+            $room = $this->roomService->get(["id" => $id]);
             $room->update(["available"=>0]);
             $data["rooms"][] = $room;
         }
         $total_cost = $this->reservationDetails->calcTotal($data["rooms"]);
         $data["total_cost"] = $total_cost;
+
         return $this->reservationService->add($data);
     }
 

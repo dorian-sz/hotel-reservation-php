@@ -17,7 +17,7 @@ class ReservationResource extends JsonResource
         return [
             'id' => $this->id,
             'total_cost' => $this->total_cost,
-            'rooms' => $this->rooms
+            'rooms' => RoomResource::collection($this->rooms)
         ];
     }
 }

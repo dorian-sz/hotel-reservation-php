@@ -4,9 +4,10 @@ import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import DefaultLayout from './layouts/DefaultLayout';
 import GuestLayout from './layouts/GuestLayout';
-import Home from './pages/Home';
 import AdminLayout from './layouts/AdminLayout';
 import Dashboard from './pages/Dashboard';
+import Rooms from './pages/Rooms';
+import Reserve from './pages/Reserve';
 
 const router = createBrowserRouter([
 	{
@@ -15,11 +16,15 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '/',
-				element: <Navigate to='/logged-in' />,
+				element: <Navigate to='/rooms' />,
 			},
 			{
-				path: '/logged-in',
-				element: <Home />,
+				path: '/rooms',
+				element: <Rooms />,
+			},
+			{
+				path: '/make-reservation',
+				element: <Reserve />,
 			},
 		],
 	},
@@ -27,14 +32,6 @@ const router = createBrowserRouter([
 		path: '/',
 		element: <GuestLayout />,
 		children: [
-			{
-				path: '/',
-				element: <Navigate to='/logged-out' />,
-			},
-			{
-				path: '/logged-out',
-				element: <Home />,
-			},
 			{
 				path: '/login',
 				element: <Login />,

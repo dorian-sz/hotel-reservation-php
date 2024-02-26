@@ -6,13 +6,15 @@ export default function GuestLayout() {
 	const { token } = useStateContext();
 
 	if (token) {
-		return <Navigate to='/logged-in' />;
+		return <Navigate to='/' />;
 	}
 
 	return (
-		<div>
+		<div className='h-full'>
 			<Navbar />
-			<Outlet />
+			<div className='h-full pt-20'>
+				<Outlet />
+			</div>
 		</div>
 	);
 }

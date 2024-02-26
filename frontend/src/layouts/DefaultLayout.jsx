@@ -4,19 +4,20 @@ import Navbar from '../components/Navbar/Navbar';
 
 export default function DefaultLayout() {
 	const { user, token } = useStateContext();
-
+	console.log(token);
 	if (!token) {
-		return <Navigate to='/logged-out' />;
+		return <Navigate to='/login' />;
 	}
 
 	return (
-		<>
+		<div className='h-full'>
 			<Navbar
 				user={user}
 				token={token}
 			/>
-			Default layout
-			<Outlet />
-		</>
+			<div className='h-full pt-20'>
+				<Outlet />
+			</div>
+		</div>
 	);
 }

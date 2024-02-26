@@ -5,10 +5,11 @@ namespace App\Services;
 use App\Http\Resources\RoomResource;
 use App\Interfaces\IService;
 use App\Models\Room;
+use App\Traits\GetRoomsById;
 
 class RoomService implements IService
 {
-
+    use GetRoomsById;
     /**
      * @inheritDoc
      */

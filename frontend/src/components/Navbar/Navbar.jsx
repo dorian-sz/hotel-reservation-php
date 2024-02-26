@@ -9,12 +9,12 @@ export default function Navbar({ user, token }) {
 		{
 			label: 'Rooms',
 			url: '/',
-			active: location.pathname.includes('logged'),
+			active: location.pathname.includes('room'),
 		},
 	];
 
 	return (
-		<nav className='flex w-full p-4 justify-center border-b'>
+		<nav className='flex w-full p-4 justify-center fixed border-b bg-white'>
 			<div className='flex w-3/4 justify-between items-center'>
 				<div className='w-full cursor-pointer'>
 					<p className='font-extrabold text-xl md:text-2xl text-red-500'>H/R</p>

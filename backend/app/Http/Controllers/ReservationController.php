@@ -10,6 +10,7 @@ use App\Services\ReservationDetails;
 use App\Services\ReservationService;
 use App\Services\RoomService;
 use App\Services\UserService;
+use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
@@ -42,11 +43,13 @@ class ReservationController extends Controller
             return response('User not found', 404);
         }
 
-        foreach ($data["room_ids"] as $id){
-            $room = $this->roomService->get(["id" => $id]);
+        $rooms = $this->roomService->roomsById($data["room_ids"]);
+
+        foreach ($rooms as $room){
             $room->update(["available"=>0]);
             $data["rooms"][] = $room;
         }
+
         $total_cost = $this->reservationDetails->calcTotal($data["rooms"]);
         $data["total_cost"] = $total_cost;
 
@@ -79,5 +82,12 @@ class ReservationController extends Controller
             $room->update(["available"=>1]);
         }
         return $this->reservationService->delete($reservation);
+    }
+
+    public function totalCost(Request $request)
+    {
+        $rooms = $this->roomService->roomsById($request->ids);
+        $total_cost = $this->reservationDetails->calcTotal($rooms);
+        return response($total_cost);
     }
 }

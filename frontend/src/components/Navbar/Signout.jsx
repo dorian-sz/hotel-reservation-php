@@ -9,6 +9,7 @@ export default function Signout() {
 			setUser({});
 			setIsAdmin(false);
 			setToken(null);
+			localStorage.clear();
 		});
 	};
 

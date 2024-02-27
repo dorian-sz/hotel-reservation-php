@@ -1,22 +1,49 @@
 import { useEffect, useState } from 'react';
 import Button from './Button';
 import PendingReservationCard from './PendingReservationCard';
+import axiosClient from '../../axios-client';
+import { useStateContext } from '../../context/ContextProvider';
 
 export default function PendingReservation({
 	reservations,
 	removeReservation,
+	setReservations,
 }) {
+	const { user } = useStateContext();
+
 	const [total, setTotal] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		getTotal();
 	}, [reservations]);
 
 	const getTotal = () => {
-		const sum = reservations?.reduce((accumulator, currentValue) => {
-			return parseFloat(accumulator) + parseFloat(currentValue.cost);
-		}, 0);
-		setTotal(sum.toFixed(2));
+		if (reservations.length > 0) {
+			const sum = reservations.reduce((accumulator, currentValue) => {
+				return parseFloat(accumulator) + parseFloat(currentValue.cost);
+			}, 0);
+			setTotal(sum.toFixed(2));
+		}
+	};
+
+	const postReservation = () => {
+		const payload = {
+			user_id: user.id,
+			room_ids: reservations.map((room) => room.id),
+		};
+
+		setIsLoading(true);
+		axiosClient
+			.post('/reservations', payload)
+			.then(() => {
+				setIsLoading(false);
+				setReservations([]);
+				localStorage.removeItem('reservation');
+			})
+			.catch((err) => {
+				setIsLoading(false);
+			});
 	};
 
 	return (
@@ -44,7 +71,10 @@ export default function PendingReservation({
 					</p>
 				</div>
 				<div className='w-3/5'>
-					<Button />
+					<Button
+						onClick={postReservation}
+						isLoading={isLoading}
+					/>
 				</div>
 			</div>
 		</div>

@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RoomDetailsController;
+use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\RoomController;
+use \App\Http\Controllers\ReservationController;
+use \App\Http\Controllers\SizeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,17 +24,16 @@ Route::middleware('auth:sanctum')->group(function (){
     });
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::apiResource('/users', UserController::class);
+    Route::apiResource('/rooms', RoomController::class);
+    Route::apiResource('/reservations', ReservationController::class);
+    Route::apiResource('/sizes', SizeController::class);
 
-    Route::apiResource('/users', \App\Http\Controllers\UserController::class);
-    Route::apiResource('/rooms', \App\Http\Controllers\RoomController::class);
-    Route::apiResource('/reservations', \App\Http\Controllers\ReservationController::class);
-    Route::apiResource('/sizes', \App\Http\Controllers\SizeController::class);
+    Route::post('/reservations/total-cost', [ReservationController::class, 'totalCost']);
 
-    Route::post('/reservations/total-cost', [\App\Http\Controllers\ReservationController::class, 'totalCost']);
-
-    Route::get('/room-details/available', [RoomDetailsController::class, 'availableRooms']);
-    Route::get('/room-details/cost/{room}', [RoomDetailsController::class, 'getRoomCost']);
-    Route::get('/room-details/size/{room}', [RoomDetailsController::class, 'getRoomSize']);
+    Route::get('/room-details/available', [RoomController::class, 'availableRooms']);
+    Route::get('/rooms-details/cost/{room}', [RoomController::class, 'getRoomCost']);
+    Route::get('/room-details/size/{room}', [RoomController::class, 'getRoomSize']);
 });
 
 

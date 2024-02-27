@@ -57,4 +57,19 @@ class RoomController extends Controller
     {
         return $this->roomService->delete($room);
     }
+
+    public function availableRooms()
+    {
+        return $this->roomService->getAvailableRooms();
+    }
+
+    public function getRoomCost(Room $room)
+    {
+        return $this->roomService->getRoomCost($room);
+    }
+
+    public function getRoomSize(Room $room)
+    {
+        return $this->roomService->getRoomCost($room);
+    }
 }

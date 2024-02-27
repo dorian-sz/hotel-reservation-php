@@ -8,6 +8,6 @@ use App\Models\Room;
 trait GetRoomsById
 {
     public function roomsById($ids){
-        return RoomResource::collection(Room::query()->findMany($ids));
+        return Room::query()->findMany($ids);
     }
 }

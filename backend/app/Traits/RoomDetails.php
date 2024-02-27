@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Traits;
 
 use App\Http\Resources\RoomResource;
-use App\Interfaces\IRoomDetails;
 use App\Models\Room;
 use App\Models\Size;
 
-class RoomDetails implements IRoomDetails
+trait RoomDetails
 {
     /**
      * @param Room $entity

@@ -8,7 +8,7 @@ export default function Rooms() {
 	const [rooms, setRooms] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [reservations, setReservations] = useState(
-		JSON.parse(localStorage.getItem('reservation'))
+		JSON.parse(localStorage.getItem('reservation')) || []
 	);
 
 	useEffect(() => {
@@ -63,7 +63,7 @@ export default function Rooms() {
 	const getRooms = () => {
 		setLoading(true);
 		axiosClient
-			.get('/rooms')
+			.get('/room-details/available')
 			.then(({ data }) => {
 				setLoading(false);
 				let filtered = filter(data.data, reservations);
@@ -79,6 +79,7 @@ export default function Rooms() {
 			{reservations.length > 0 && (
 				<PendingReservation
 					reservations={reservations}
+					setReservations={setReservations}
 					removeReservation={removeReservation}
 					setLoading={setLoading}
 				/>

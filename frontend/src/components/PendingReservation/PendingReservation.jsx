@@ -1,33 +1,22 @@
 import { useEffect, useState } from 'react';
 import Button from './Button';
 import PendingReservationCard from './PendingReservationCard';
-import axiosClient from '../../axios-client';
 
 export default function PendingReservation({
 	reservations,
 	removeReservation,
 }) {
 	const [total, setTotal] = useState(null);
-	const [roomIds, setRoomIds] = useState({});
-
-	useEffect(() => {
-		console.log('here');
-		setRoomIds({
-			ids: reservations.map((room) => room.id),
-		});
-	}, [reservations]);
 
 	useEffect(() => {
 		getTotal();
-	}, [roomIds]);
+	}, [reservations]);
 
 	const getTotal = () => {
-		axiosClient
-			.post('/reservations/total-cost', roomIds)
-			.then(({ data }) => {
-				setTotal(data);
-			})
-			.catch(() => {});
+		const sum = reservations?.reduce((accumulator, currentValue) => {
+			return parseFloat(accumulator) + parseFloat(currentValue.cost);
+		}, 0);
+		setTotal(sum.toFixed(2));
 	};
 
 	return (

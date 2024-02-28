@@ -6,10 +6,11 @@ use App\Http\Requests\StoreReservationRequest;
 use App\Http\Resources\ReservationResource;
 use App\Interfaces\IService;
 use App\Models\Reservation;
+use App\Traits\ReservationDetails;
 
 class ReservationService implements IService
 {
-
+    use ReservationDetails;
     public function __construct(private readonly RoomService $roomService)
     {
     }

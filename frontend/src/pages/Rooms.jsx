@@ -6,7 +6,7 @@ import PendingReservation from '../components/PendingReservation/PendingReservat
 
 export default function Rooms() {
 	const [rooms, setRooms] = useState([]);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [reservations, setReservations] = useState(
 		JSON.parse(localStorage.getItem('reservation')) || []
 	);
@@ -76,6 +76,16 @@ export default function Rooms() {
 
 	return (
 		<div className='flex flex-col md:gap-x-1 gap-y-14 w-full xl:w-3/4 h-full mx-auto p-4'>
+			{
+				//prettier-ignore
+				(!loading && (rooms.length === 0 && reservations.length === 0)) && (
+					<div className='h-full flex justify-center items-center'>
+						<p className='text-3xl font-extrabold text-red-600'>
+							Currently there are no available rooms.
+						</p>
+					</div>
+				)
+			}
 			{reservations.length > 0 && (
 				<PendingReservation
 					reservations={reservations}
@@ -84,7 +94,6 @@ export default function Rooms() {
 					setLoading={setLoading}
 				/>
 			)}
-
 			<div className='flex justify-center sm:justify-evenly md:gap-x-1 gap-y-14 w-full h-full flex-wrap'>
 				{loading && <Loading />}
 				{!loading &&

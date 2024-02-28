@@ -3,10 +3,10 @@ import placeholder from '/images/No-Image-Placeholder.svg.png';
 
 export default function RoomCard({ room, addReservation }) {
 	return (
-		<div className='flex flex-col gap-y-2 w-full sm:w-5/12 md:w-1/3 lg:w-1/5 h-1/2 sm:min-h-2/5 '>
+		<div className='flex flex-col gap-y-2 w-full sm:w-5/12 md:w-1/3 lg:w-1/5'>
 			<div className='rounded-lg'>
 				<img
-					className='object-fill'
+					className='h-auto max-w-full'
 					src={placeholder}
 				/>
 			</div>

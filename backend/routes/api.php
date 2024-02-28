@@ -29,13 +29,12 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('/reservations', ReservationController::class);
     Route::apiResource('/sizes', SizeController::class);
 
-    Route::post('/reservations/total-cost', [ReservationController::class, 'totalCost']);
+    Route::get('/user-reservations/{user}', [ReservationController::class, 'showUserReservation']);
 
     Route::get('/room-details/available', [RoomController::class, 'availableRooms']);
     Route::get('/rooms-details/cost/{room}', [RoomController::class, 'getRoomCost']);
     Route::get('/room-details/size/{room}', [RoomController::class, 'getRoomSize']);
 });
-
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);

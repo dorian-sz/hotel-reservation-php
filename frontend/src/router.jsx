@@ -7,7 +7,7 @@ import GuestLayout from './layouts/GuestLayout';
 import AdminLayout from './layouts/AdminLayout';
 import Dashboard from './pages/Dashboard';
 import Rooms from './pages/Rooms';
-import Reserve from './pages/Reserve';
+import Reservations from './pages/Reservations';
 
 const router = createBrowserRouter([
 	{
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
 				element: <Rooms />,
 			},
 			{
-				path: '/make-reservation',
-				element: <Reserve />,
+				path: '/reservations',
+				element: <Reservations />,
 			},
 		],
 	},

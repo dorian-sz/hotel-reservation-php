@@ -3,20 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateReservationRequest;
-use App\Http\Resources\ReservationResource;
 use App\Models\Reservation;
 use App\Http\Requests\StoreReservationRequest;
-use App\Services\ReservationDetails;
+use App\Models\User;
 use App\Services\ReservationService;
 use App\Services\RoomService;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
     public function __construct(private readonly ReservationService $reservationService,
                                 private readonly RoomService $roomService,
-                                private readonly ReservationDetails $reservationDetails,
                                 private readonly UserService $userService
     )
     {
@@ -50,7 +47,7 @@ class ReservationController extends Controller
             $data["rooms"][] = $room;
         }
 
-        $total_cost = $this->reservationDetails->calcTotal($data["rooms"]);
+        $total_cost = $this->reservationService->calcTotal($data["rooms"]);
         $data["total_cost"] = $total_cost;
 
         return $this->reservationService->add($data);
@@ -84,10 +81,8 @@ class ReservationController extends Controller
         return $this->reservationService->delete($reservation);
     }
 
-    public function totalCost(Request $request)
+    public function showUserReservation(User $user)
     {
-        $rooms = $this->roomService->roomsById($request->ids);
-        $total_cost = $this->reservationDetails->calcTotal($rooms);
-        return response($total_cost);
+        return $this->reservationService->getUserReservations($user);
     }
 }

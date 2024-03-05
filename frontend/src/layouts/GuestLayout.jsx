@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useStateContext } from '../context/ContextProvider';
-import Navbar from '../components/Navbar/Navbar';
 
 export default function GuestLayout() {
 	const { token } = useStateContext();
@@ -10,11 +9,8 @@ export default function GuestLayout() {
 	}
 
 	return (
-		<div className='h-full'>
-			<Navbar />
-			<div className='h-full pt-20'>
-				<Outlet />
-			</div>
+		<div className='flex items-center h-full'>
+			<Outlet />
 		</div>
 	);
 }

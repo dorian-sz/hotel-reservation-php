@@ -3,12 +3,15 @@ import Form from '../components/Form/Form';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../context/ContextProvider';
 
-export default function Login() {
+export default function Signup() {
+	const fNameRef = useRef();
+	const lNameRef = useRef();
 	const emailRef = useRef();
 	const passwordRef = useRef();
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
+
 	const { setUser, setToken, setIsAdmin } = useStateContext();
 
 	const fields = [
@@ -17,6 +20,18 @@ export default function Login() {
 			id: 'email',
 			type: 'email',
 			ref: emailRef,
+		},
+		{
+			label: 'First name',
+			id: 'fName',
+			type: 'text',
+			ref: fNameRef,
+		},
+		{
+			label: 'Last name',
+			id: 'lName',
+			type: 'text',
+			ref: lNameRef,
 		},
 		{
 			label: 'Password',
@@ -31,10 +46,12 @@ export default function Login() {
 		setIsLoading(true);
 		const payload = {
 			email: emailRef.current.value,
+			first_name: fNameRef.current.value,
+			last_name: lNameRef.current.value,
 			password: passwordRef.current.value,
 		};
 		axiosClient
-			.post('/login', payload)
+			.post('/signup', payload)
 			.then(({ data }) => {
 				setUser(data.user);
 				setIsAdmin(data.isAdmin);
@@ -46,20 +63,22 @@ export default function Login() {
 				const response = err.response;
 				if (response && response.status === 422) {
 					setError(response.data.message);
+					setIsLoading(false);
 				}
-				setIsLoading(false);
 			});
 	};
 
 	return (
 		<div className='flex w-full justify-center mt-20 '>
 			<Form
-				title={'Login into your account'}
+				title={'Create a new account'}
 				fields={fields}
-				buttonLabel={'Log in'}
+				buttonLabel={'Register'}
 				onSubmit={onSubmit}
 				isLoading={isLoading}
 				error={error}
+				label={'Already have an account? Sign in.'}
+				linkTo={'/login'}
 			/>
 		</div>
 	);

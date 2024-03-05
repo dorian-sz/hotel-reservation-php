@@ -41,7 +41,7 @@ export default function PendingReservation({
 				setReservations([]);
 				localStorage.removeItem('reservation');
 			})
-			.catch((err) => {
+			.catch(() => {
 				setIsLoading(false);
 			});
 	};
@@ -49,7 +49,7 @@ export default function PendingReservation({
 	return (
 		<div className='flex flex-col gap-y-6 w-full p-4 py-6 border-b'>
 			<div>
-				<p className='font-extrabold text-2xl text-red-600'>
+				<p className='font-extrabold w-full text-xl sm:text-2xl text-red-600'>
 					Your planned reservations
 				</p>
 			</div>
@@ -63,7 +63,7 @@ export default function PendingReservation({
 						/>
 					))}
 			</div>
-			<div className='flex justify-between w-1/2'>
+			<div className='flex justify-between w-full md:w-1/2'>
 				<div className='flex w-1/4'>
 					<p className='text-xl font-bold text-red-600'>
 						Total:{' '}

@@ -37,6 +37,7 @@ Allow some time for the MySQL container to start then run the migration with the
 docker-compose exec api php artisan migrate --seed
 ```
 Included in the seeder is a user account
+
 This account has the e-mail (used to log in)
 ```sh
 test@example.com

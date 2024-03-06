@@ -14,8 +14,6 @@ The main feature of this app is the ability to view available rooms, reserve roo
 
 ### You can run the Hotel Reservation App
 
-With Docker
-
 First clone the repository
 
 ### With Docker

@@ -1,4 +1,4 @@
-# Hotel Reservation site
+# Hotel Reservation App
 ### Welcome to the Hotel Reservation App repository
 The main feature of this app is the ability to view available rooms, reserve room(s), view reservations and delete reservations.
 
@@ -10,9 +10,9 @@ The main feature of this app is the ability to view available rooms, reserve roo
 - Protected routes for both backend and frontend
 - Containerization with Docker
 
-## To get started with the TaskManager-CRUD-app
+## To get started with the Hotel Reservation App
 
-### You can run the TaskManager-CRUD-app
+### You can run the Hotel Reservation App
 
 With Docker
 

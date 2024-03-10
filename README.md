@@ -20,6 +20,8 @@ First clone the repository
 ### With Docker
 You will need Docker
 
+### You will also need to change the .env.example files into .env before proceeding in both frontend and backend folders!
+
 Navigate to: .\hotel-reservation-php
 
 Then type in the terminal

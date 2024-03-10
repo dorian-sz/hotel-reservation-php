@@ -46,3 +46,8 @@ And password
 ```sh
 password!
 ```
+
+You can access the frontend page at
+```sh
+https://localhost:3000
+```
